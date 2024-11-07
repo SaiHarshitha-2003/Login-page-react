@@ -6,7 +6,7 @@ const EmployeeList = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   const employees = [
-    { id: 1, image: "public/image.png", name: "Sushu", email: "sushu1@gmail.com", mobile: "9012348655", designation: "HR", gender: "Female", course: "MCA", createDate: "15-Oct-24" },
+    { id: 1, image: "image.png", name: "Sushu", email: "sushu1@gmail.com", mobile: "9012348655", designation: "HR", gender: "Female", course: "MCA", createDate: "15-Oct-24" },
     { id: 2, image: "image.png", name: "Harshi", email: "harshi2@gmail.com", mobile: "9540178456", designation: "Sales", gender: "Female", course: "BCA", createDate: "1-Nov-23" },
     { id: 3, image: "image.png", name: "Nani", email: "nani3@gmail.com", mobile: "9678953219", designation: "Manager", gender: "Male", course: "BSC", createDate: "5-Aug-24" },
     { id: 4, image: "image.png", name: "Chintu", email: "chintu4@gmail.com", mobile: "7934956565", designation: "HR", gender: "Male", course: "MCA", createDate: "13-Feb-22" },

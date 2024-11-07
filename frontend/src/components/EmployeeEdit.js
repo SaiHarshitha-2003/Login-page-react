@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import styles from './EmployeeEdit.css';
 
-const EmployeeEdit = ({ match }) => {
+const EmployeeEdit = () => {
+  const { id } = useParams();
   const [employee, setEmployee] = useState({
     name: '',
     email: '',
@@ -13,8 +16,7 @@ const EmployeeEdit = ({ match }) => {
   const [error, setError] = useState({});
 
   useEffect(() => {
-    // Fetch employee data based on ID (match.params.id) and populate form fields
-    // Replace with API call to fetch employee details
+    // Fetch employee data based on ID and populate form fields
     setEmployee({
       name: 'Sai',
       email: 'sai@gmail.com',
@@ -23,7 +25,7 @@ const EmployeeEdit = ({ match }) => {
       gender: 'F',
       course: ['MBA'],
     });
-  }, [match.params.id]);
+  }, [id]);
 
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -60,7 +62,6 @@ const EmployeeEdit = ({ match }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Basic form validation
     let formValid = true;
     let newError = {};
 
@@ -86,123 +87,143 @@ const EmployeeEdit = ({ match }) => {
 
     setError(newError);
     if (formValid) {
-      // Submit form data to backend
       alert('Form submitted successfully!');
     }
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       <h2>Employee Edit</h2>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>Name:</label>
-          <input
-            type="text"
-            name="name"
-            value={employee.name}
-            onChange={handleChange}
-          />
-          {error.name && <p style={{ color: 'red' }}>{error.name}</p>}
-        </div>
+        <table className={styles.table}>
+          <tbody>
+            <tr>
+              <td><label>Name:</label></td>
+              <td>
+                <input
+                  type="text"
+                  name="name"
+                  value={employee.name}
+                  onChange={handleChange}
+                />
+                {error.name && <p className={styles.error}>{error.name}</p>}
+              </td>
+            </tr>
 
-        <div>
-          <label>Email:</label>
-          <input
-            type="email"
-            name="email"
-            value={employee.email}
-            onChange={handleChange}
-          />
-          {error.email && <p style={{ color: 'red' }}>{error.email}</p>}
-        </div>
+            <tr>
+              <td><label>Email:</label></td>
+              <td>
+                <input
+                  type="email"
+                  name="email"
+                  value={employee.email}
+                  onChange={handleChange}
+                />
+                {error.email && <p className={styles.error}>{error.email}</p>}
+              </td>
+            </tr>
 
-        <div>
-          <label>Mobile No:</label>
-          <input
-            type="text"
-            name="mobileNo"
-            value={employee.mobileNo}
-            onChange={handleChange}
-          />
-          {error.mobileNo && <p style={{ color: 'red' }}>{error.mobileNo}</p>}
-        </div>
+            <tr>
+              <td><label>Mobile No:</label></td>
+              <td>
+                <input
+                  type="text"
+                  name="mobileNo"
+                  value={employee.mobileNo}
+                  onChange={handleChange}
+                />
+                {error.mobileNo && <p className={styles.error}>{error.mobileNo}</p>}
+              </td>
+            </tr>
 
-        <div>
-          <label>Designation:</label>
-          <select
-            name="designation"
-            value={employee.designation}
-            onChange={handleChange}
-          >
-            <option value="HR">HR</option>
-            <option value="Manager">Manager</option>
-            <option value="Sales">Sales</option>
-          </select>
-          {error.designation && <p style={{ color: 'red' }}>{error.designation}</p>}
-        </div>
+            <tr>
+              <td><label>Designation:</label></td>
+              <td>
+                <select
+                  name="designation"
+                  value={employee.designation}
+                  onChange={handleChange}
+                >
+                  <option value="HR">HR</option>
+                  <option value="Manager">Manager</option>
+                  <option value="Sales">Sales</option>
+                </select>
+                {error.designation && <p className={styles.error}>{error.designation}</p>}
+              </td>
+            </tr>
 
-        <div>
-          <label>Gender:</label>
-          <label>
-            <input
-              type="radio"
-              name="gender"
-              value="M"
-              checked={employee.gender === 'M'}
-              onChange={handleChange}
-            />{' '}
-            Male
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="gender"
-              value="F"
-              checked={employee.gender === 'F'}
-              onChange={handleChange}
-            />{' '}
-            Female
-          </label>
-        </div>
+            <tr>
+              <td><label>Gender:</label></td>
+              <td>
+                <div className={styles.radioGroup}>
+                  <label>
+                    <input
+                      type="radio"
+                      name="gender"
+                      value="M"
+                      checked={employee.gender === 'M'}
+                      onChange={handleChange}
+                    />{' '}
+                    Male
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      name="gender"
+                      value="F"
+                      checked={employee.gender === 'F'}
+                      onChange={handleChange}
+                    />{' '}
+                    Female
+                  </label>
+                </div>
+              </td>
+            </tr>
 
-        <div>
-          <label>Course:</label>
-          <label>
-            <input
-              type="checkbox"
-              value="MCA"
-              checked={employee.course.includes('MCA')}
-              onChange={handleCheckboxChange}
-            />{' '}
-            MCA
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              value="BCA"
-              checked={employee.course.includes('BCA')}
-              onChange={handleCheckboxChange}
-            />{' '}
-            BCA
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              value="BSC"
-              checked={employee.course.includes('BSC')}
-              onChange={handleCheckboxChange}
-            />{' '}
-            BSC
-          </label>
-        </div>
+            <tr>
+              <td><label>Course:</label></td>
+              <td>
+                <div className={styles.checkboxGroup}>
+                  <label>
+                    <input
+                      type="checkbox"
+                      value="MCA"
+                      checked={employee.course.includes('MCA')}
+                      onChange={handleCheckboxChange}
+                    />{' '}
+                    MCA
+                  </label>
+                  <label>
+                    <input
+                      type="checkbox"
+                      value="BCA"
+                      checked={employee.course.includes('BCA')}
+                      onChange={handleCheckboxChange}
+                    />{' '}
+                    BCA
+                  </label>
+                  <label>
+                    <input
+                      type="checkbox"
+                      value="BSC"
+                      checked={employee.course.includes('BSC')}
+                      onChange={handleCheckboxChange}
+                    />{' '}
+                    BSC
+                  </label>
+                </div>
+              </td>
+            </tr>
 
-        <div>
-          <label>Image Upload:</label>
-          <input type="file" onChange={handleFileUpload} />
-          {error.image && <p style={{ color: 'red' }}>{error.image}</p>}
-        </div>
-
+            <tr>
+              <td><label>Image Upload:</label></td>
+              <td>
+                <input type="file" onChange={handleFileUpload} />
+                {error.image && <p className={styles.error}>{error.image}</p>}
+              </td>
+            </tr>
+          </tbody>
+        </table>
         <button type="submit">Update</button>
       </form>
     </div>
